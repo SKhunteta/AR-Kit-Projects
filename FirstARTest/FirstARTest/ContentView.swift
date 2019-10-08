@@ -24,13 +24,23 @@ struct ARViewContainer: UIViewRepresentable {
         
         let arView = ARView(frame: .zero)
         
+        var anchor:Experience.Box!
+        
+        anchor = try! Experience.loadBox()
+        anchor.generateCollisionShapes(recursive: true)
+        
+        arView.scene.anchors.append(anchor)
+        
+        anchor.scale = SIMD3<Float>(0.001, 0.001, 0.01)
+        
+        
         // Load the "Box" scene from the "Experience" Reality File
-        let boxAnchor = try! Experience.loadBox()
-        
-        boxAnchor.scale = SIMD3<Float>(0.01, 0.01, 0.1)
-        
-        // Add the box anchor to the scene
-        arView.scene.anchors.append(boxAnchor)
+//        let boxAnchor = try! Experience.loadBox()
+//
+//        boxAnchor.scale = SIMD3<Float>(0.001, 0.001, 0.01)
+//
+//        // Add the box anchor to the scene
+//        arView.scene.anchors.append(boxAnchor)
         
         return arView
         
